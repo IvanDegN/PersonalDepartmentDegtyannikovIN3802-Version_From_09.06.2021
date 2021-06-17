@@ -1,0 +1,59 @@
+﻿<Window x:Class="PersonalDepartmentDegtyannikovIN3802.RegistrationForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
+        mc:Ignorable="d"
+        Title="Регистрация" Height="600" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="500px"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#696969" Margin="0,0,0,495" Grid.RowSpan="2"></Rectangle>
+        <Rectangle Grid.Row="2" Fill="#696969" Margin="0,0,0,-7"></Rectangle>
+        <Label Content="Форма регистрации" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="GhostWhite" Height="47" Margin="49,0,33,488" Grid.RowSpan="2" Width="210"></Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Фамилия" Margin="10,20,0,119"/>
+            <Label Content="Имя" Margin="10,39,10,98" RenderTransformOrigin="0.436,0.288"/>
+            <Label Content="Отчество" Margin="10,62,64,77" Grid.ColumnSpan="2"/>
+            <Label Content="Логин" Grid.ColumnSpan="2" Margin="10,95,64,47"/>
+            <Label Content="Пароль" Margin="10,123,0,10"/>
+            <Label Content="Дата рождения" Grid.ColumnSpan="2" Margin="10,10,33,132" Grid.Row="1"/>
+            <Label Content="Номер телефона" Margin="10,38,33,103" Grid.Row="1" Grid.ColumnSpan="2"></Label>
+            <PasswordBox Margin="5,125,52,22" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <TextBox Margin="5,96,52,47" Grid.ColumnSpan="2" Grid.Column="1" Name="TbLogin"/>
+            <TextBox Margin="5,65,52,77" Grid.ColumnSpan="2" Grid.Column="1" KeyDown="TbMiddleName_KeyDown"/>
+            <TextBox Grid.Column="1" Margin="5,43,52,102" Grid.ColumnSpan="2" Name="TbName" KeyDown="TbName_KeyDown"/>
+            <TextBox Grid.ColumnSpan="2" Grid.Column="1" Margin="5,21,52,124" Name="TbSurname" KeyDown="TbSurname_KeyDown"/>
+            <Button Grid.Row="2" Margin="5,95,5,49" Grid.ColumnSpan="2" Content="Зарегистрироваться" Grid.Column="1" Click="Button_Click"/>
+            <Button Grid.Row="2" Margin="10,126,0,10" Content="Отмена" Click="BtnCancel"/>
+            <Button Grid.Column="3" Grid.Row="2" Margin="0,126,10,10" Content="Назад" Click="BtnBackRegForm"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="37,11,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="99"/>
+            <Label Content="Пол" Grid.Row="1" Grid.Column="0" Margin="10,64,10,79"></Label>
+            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="120" Margin="21,141,0,0"/>
+            <Label Content="Адрес" Grid.Row="1" Grid.Column="0" Margin="10,88,10,50"></Label>
+            <TextBox Margin="5,92,52,58" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Label Content="Образование" Grid.Row="1" Grid.Column="0" Margin="10,111,47,31" Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Row="1" Margin="5,68,21,78" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <Label Content="Отдел" Grid.Row="1" Grid.Column="0" Margin="10,136,15,3"></Label>
+            <ComboBox Grid.Column="1" Margin="21,114,5,31" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Label Content="Дата приёма на работу" Grid.Row="0" Margin="10,147,65,161" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+            <DatePicker Grid.Column="2" Margin="10,150,32,160" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        </Grid>
+    </Grid>
+
+</Window>
