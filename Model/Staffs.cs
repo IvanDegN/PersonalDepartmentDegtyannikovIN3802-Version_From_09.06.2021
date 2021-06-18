@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace PersonalDepartmentDegtyannikovIN3802
 {
-   static class DB
+   partial class Staffs
     {
-        static public PersonalDepartmentDB db = new PersonalDepartmentDB();
+        public override string ToString()
+        {
+            return Education.ToString();
+        }
     }
 }

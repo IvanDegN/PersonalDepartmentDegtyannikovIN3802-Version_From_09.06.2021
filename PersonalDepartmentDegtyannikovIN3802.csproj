@@ -69,6 +69,10 @@
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DB.cs" />
+    <Compile Include="Model\Departments.cs" />
+    <Compile Include="Model\Positions.cs" />
+    <Compile Include="Model\Sexes.cs" />
+    <Compile Include="Model\Staffs.cs" />
     <Compile Include="PersonalDepartmentDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

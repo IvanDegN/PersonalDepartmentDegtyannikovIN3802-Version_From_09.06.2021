@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7b4e04d0df5f4402bc9473a384c5febc" Name="Diagram1">
+      <Diagram DiagramId="7b4e04d0df5f4402bc9473a384c5febc" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="OtdelKadrovModel.Departments" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="OtdelKadrovModel.Positions" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OtdelKadrovModel.Sexes" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OtdelKadrovModel.Staffs" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtdelKadrovModel.Staffs" Width="1.875" PointX="3.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OtdelKadrovModel.Users" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="OtdelKadrovModel.FK_dbo_Staffs_dbo_Departments_DepartmentId" ManuallyRouted="false" />
         <AssociationConnector Association="OtdelKadrovModel.FK_dbo_Staffs_dbo_Positions_PositionId" ManuallyRouted="false" />
