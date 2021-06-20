@@ -13,6 +13,8 @@
         <AssociationConnector Association="OtdelKadrovModel.FK_dbo_Staffs_dbo_Departments_DepartmentId" ManuallyRouted="false" />
         <AssociationConnector Association="OtdelKadrovModel.FK_dbo_Staffs_dbo_Positions_PositionId" ManuallyRouted="false" />
         <AssociationConnector Association="OtdelKadrovModel.FK_dbo_Staffs_dbo_Sexes_SexId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OtdelKadrovModel.Educations" Width="1.5" PointX="6.375" PointY="4.875" />
+        <AssociationConnector Association="OtdelKadrovModel.FK_Staffs_Educations" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

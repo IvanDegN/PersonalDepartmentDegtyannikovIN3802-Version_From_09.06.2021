@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
         mc:Ignorable="d"
-        Title="Регистрация" Height="600" Width="300" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Регистрация" Height="702.667" Width="423.773" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="500px"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#696969" Margin="0,0,0,495" Grid.RowSpan="2"></Rectangle>
-        <Rectangle Grid.Row="2" Fill="#696969" Margin="0,0,0,-7"></Rectangle>
-        <Label Content="Форма регистрации" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="GhostWhite" Height="47" Margin="49,0,33,488" Grid.RowSpan="2" Width="210"></Label>
-        <Grid Grid.Row="1" >
+        <Rectangle Fill="#FFB4B4B4"></Rectangle>
+        <Rectangle Grid.Row="2" Fill="#FFB4B4B4"></Rectangle>
+        <Label Content="Форма регистрации" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Black" Height="47" Margin="196,10,10,43" Width="210" FontFamily="Comic Sans MS" Background="{x:Null}" />
+        <Grid Grid.Row="1" Width="423.773" Margin="0,0,-8,0">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -27,37 +27,39 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Фамилия" Margin="10,10,0,129"/>
-            <Label Content="Имя" Margin="10,39,10,98" RenderTransformOrigin="0.436,0.288"/>
-            <Label Content="Отчество" Margin="10,62,64,77" Grid.ColumnSpan="2"/>
-            <Label Content="Логин" Grid.ColumnSpan="2" Margin="10,95,64,47"/>
-            <Label Content="Пароль" Margin="10,123,0,10"/>
-            <Label Content="Дата рождения" Grid.ColumnSpan="2" Margin="10,10,33,132" Grid.Row="1"/>
-            <Label Content="Номер телефона" Margin="10,38,23,103" Grid.Row="1" Grid.ColumnSpan="2"></Label>
-            <PasswordBox Margin="5,125,52,20" Grid.ColumnSpan="2" Grid.Column="1" PreviewTextInput="PassBox_PreviewTextInput" Name="PassBox"/>
-            <TextBox Margin="5,96,52,47" Grid.ColumnSpan="2" Grid.Column="1" Name="TbLogin" PreviewTextInput="TbLogin_PreviewTextInput"  />
-            <TextBox Margin="5,67,52,77" Grid.ColumnSpan="2" Grid.Column="1" Name="TbMiddleName" KeyDown="MiddleName_KeyDown" />
-            <TextBox Grid.Column="1" Margin="5,39,52,105" Grid.ColumnSpan="2" Name="TbName" KeyDown="TbName_KeyDown" />
-            <TextBox Grid.ColumnSpan="2" Grid.Column="1" Margin="5,10,52,133" Name="TbSurname" KeyDown="TbSurname_KeyDown"/>
-            <Button Grid.Row="2" Margin="5,95,5,49" Grid.ColumnSpan="2" Content="Зарегистрироваться" Grid.Column="1" Name="BtnRegister" Click="BtnRegister_Click"/>
-            <Button Grid.Row="2" Margin="10,126,0,10" Content="Отмена" Click="BtnCancel"/>
-            <Button Grid.Column="3" Grid.Row="2" Margin="0,126,10,10" Content="Назад" Click="BtnBackRegForm"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="37,11,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="99" Name="DpDateOfBirth"/>
-            <Label Content="Пол" Grid.Row="1" Grid.Column="0" Margin="10,64,10,79"></Label>
-            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="120" Margin="21,163,0,0" Grid.RowSpan="2" Name="CbDepartment" SelectedValuePath="DepartmentId" SelectedValue="{Binding Path=DepartmentId}"/>
-            <Label Content="Адрес" Grid.Row="1" Grid.Column="0" Margin="10,98,10,40"></Label>
-            <TextBox Margin="10,98,47,45" Grid.Column="1" Grid.ColumnSpan="2" Name="Address" PreviewTextInput="Address_PreviewTextInput" Grid.Row="1"/>
-            <Label Content="Образование" Grid.Row="1" Grid.Column="0" Margin="10,132,47,10" Grid.ColumnSpan="2"/>
-            <ComboBox Grid.Row="1" Margin="5,68,21,78" Grid.ColumnSpan="2" Grid.Column="1" Name="CbSex" SelectedValuePath="SexId" SelectedValue="{Binding Path=SexId}"/>
-            <Label Content="Отдел" Grid.Row="1" Grid.Column="0" Margin="10,157,15,148" Grid.RowSpan="2"></Label>
-            <ComboBox Grid.Column="1" Margin="21,132,5,13" Grid.ColumnSpan="2" Grid.Row="1" Name="CbEducation" SelectedValuePath="Education" SelectedValue="{Binding Path=Education}"/>
-            <Label Content="Дата приёма на работу" Grid.Row="0" Margin="10,147,65,161" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-            <DatePicker Grid.Column="2" Margin="10,150,32,160" Grid.ColumnSpan="2" Grid.RowSpan="2" Name="DpEmployment"/>
+            <Label Content="Фамилия" Margin="10,4,0,139" FontFamily="Comic Sans MS" />
+            <Label Content="Имя" Margin="10,39,10,91" RenderTransformOrigin="0.436,0.288" FontFamily="Comic Sans MS" />
+            <Label Content="Отчество" Margin="10,62,15,71" FontFamily="Comic Sans MS" />
+            <Label Content="Логин" Margin="10,95,15,36" FontFamily="Comic Sans MS" />
+            <Label Content="Пароль" Margin="10,123,15,10" FontFamily="Comic Sans MS" />
+            <Label Content="Дата рождения" Margin="10,7,0,128" Grid.Row="1" FontFamily="Comic Sans MS" />
+            <Label Content="Номер телефона" Margin="10,38,92,97" Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" ></Label>
+            <PasswordBox Margin="5,125,52,32" Grid.ColumnSpan="2" Grid.Column="1" PreviewTextInput="PassBox_PreviewTextInput" Name="PassBox"/>
+            <TextBox Margin="5,96,52,57" Grid.ColumnSpan="2" Grid.Column="1" Name="TbLogin" PreviewTextInput="TbLogin_PreviewTextInput"  />
+            <TextBox Margin="5,67,52,86" Grid.ColumnSpan="2" Grid.Column="1" Name="TbMiddleName" KeyDown="MiddleName_KeyDown" PreviewTextInput="TbMiddleName_PreviewTextInput" />
+            <TextBox Grid.Column="1" Margin="5,39,52,115" Grid.ColumnSpan="2" Name="TbName" KeyDown="TbName_KeyDown" PreviewTextInput="TbName_PreviewTextInput" />
+            <TextBox Grid.ColumnSpan="2" Grid.Column="1" Margin="5,10,52,143" Name="TbSurname" KeyDown="TbSurname_KeyDown" PreviewTextInput="TbSurname_PreviewTextInput"/>
+            <Button Grid.Row="2" Margin="44,85,37,65" Grid.ColumnSpan="2" Content="Зарегистрироваться" Grid.Column="1" Name="BtnRegister" Click="BtnRegister_Click" FontFamily="Comic Sans MS" />
+            <Button Grid.Row="2" Margin="10,143,10,10" Content="Отмена" Click="BtnCancel" FontFamily="Comic Sans MS" />
+            <Button Grid.Column="2" Grid.Row="2" Margin="94,143,29,10" Content="Назад" Click="BtnBackRegForm" FontFamily="Comic Sans MS" Grid.ColumnSpan="2" />
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="37,11,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="104" Name="DpDateOfBirth" FontFamily="Comic Sans MS" />
+            <Label Content="Пол" Grid.Row="1" Grid.Column="0" Margin="10,64,45,68" FontFamily="Comic Sans MS" ></Label>
+            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="120" Margin="21,174,0,0" Grid.RowSpan="2" Name="CbDepartment" SelectedValuePath="DepartmentId" SelectedValue="{Binding Path=DepartmentId}"/>
+            <Label Content="Адрес" Grid.Row="1" Grid.Column="0" Margin="10,98,10,34" FontFamily="Comic Sans MS" ></Label>
+            <TextBox Margin="10,98,47,58" Grid.Column="1" Grid.ColumnSpan="2" Name="Address" PreviewTextInput="Address_PreviewTextInput" Grid.Row="1"/>
+            <Label Content="Образование" Grid.Row="1" Grid.Column="0" Margin="10,132,47,159" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" Grid.RowSpan="2" />
+            <ComboBox Grid.Row="1" Margin="5,68,71,85" Grid.ColumnSpan="2" Grid.Column="1" Name="CbSex" SelectedValuePath="SexId" SelectedValue="{Binding Path=SexId}"/>
+            <Label Content="Отдел" Grid.Row="1" Grid.Column="0" Margin="10,167,20,158" FontFamily="Comic Sans MS" Grid.RowSpan="2" />
+            <ComboBox Grid.Column="1" Margin="21,132,47,20" Grid.ColumnSpan="2" Grid.Row="1" Name="CbEducation" SelectedValuePath="EducationId" SelectedValue="{Binding Path=EducationId}"/>
+            <Label Content="Дата приёма на работу" Grid.Row="0" Margin="10,146,50,146" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" Grid.RowSpan="2" />
+            <DatePicker Grid.Column="1" Margin="56,151,29,0" Grid.ColumnSpan="2" Name="DpEmployment" FontFamily="Comic Sans MS" />
             <TextBox Grid.ColumnSpan="3" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="44,40,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" PreviewTextInput="TbPhone_PreviewTextInput" Name="TbPhone" Text="{Binding TbPhone, StringFormat={}{0:(###)###-####}}"/>
-            <Label Content="Должность" HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="81"/>
-            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="21,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Name="CbPosition" SelectedValuePath="PositionId" SelectedValue="{Binding Path=PositionId}"/>
+            <Label Content="Должность" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="2" VerticalAlignment="Top" Width="81" FontFamily="Comic Sans MS" />
+            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="21,29,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Name="CbPosition" SelectedValuePath="PositionId" SelectedValue="{Binding Path=PositionId}"/>
+            <Label Content="Заполните необходимые поля" Grid.Column="1" HorizontalAlignment="Left" Margin="11,117,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="191" FontFamily="Comic Sans MS" Foreground="red" Visibility="Hidden" Name="LabelHint"/>
 
         </Grid>
+        <Image Margin="10,10,225,10" Source="Img/checkform.png"/>
     </Grid>
 
 </Window>

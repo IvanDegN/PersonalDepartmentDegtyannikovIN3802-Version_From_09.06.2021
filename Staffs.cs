@@ -22,15 +22,16 @@ namespace PersonalDepartmentDegtyannikovIN3802
         public string Address { get; set; }
         public System.DateTime DateOfEmployment { get; set; }
         public System.DateTime DateOfBearth { get; set; }
-        public string Education { get; set; }
         public string Room { get; set; }
         public string WorkExperience { get; set; }
         public Nullable<int> SexId { get; set; }
         public Nullable<int> PositionId { get; set; }
         public Nullable<int> DepartmentId { get; set; }
+        public Nullable<int> EducationId { get; set; }
     
         public virtual Departments Departments { get; set; }
         public virtual Positions Positions { get; set; }
         public virtual Sexes Sexes { get; set; }
+        public virtual Educations Educations { get; set; }
     }
 }

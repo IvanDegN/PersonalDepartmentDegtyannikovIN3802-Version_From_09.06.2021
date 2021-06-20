@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PersonalDepartmentDegtyannikovIN3802
 {
-   partial class Staffs
+    partial class Educations
     {
         public override string ToString()
         {
-            return base.ToString();
+            return education.ToString();
         }
     }
 }

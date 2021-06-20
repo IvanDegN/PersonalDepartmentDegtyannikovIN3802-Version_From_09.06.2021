@@ -4,45 +4,52 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище OtdelKadrovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище OtdelKadrovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="department" Type="nvarchar" MaxLength="50" />
+          <Property Name="department" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Educations">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="int" Nullable="false" />
+          <Property Name="education" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Positions">
           <Key>
             <PropertyRef Name="PositionId" />
           </Key>
           <Property Name="PositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="position" Type="nvarchar(max)" />
+          <Property Name="position" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Sexes">
           <Key>
             <PropertyRef Name="SexId" />
           </Key>
           <Property Name="SexId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="sex" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Staffs">
           <Key>
             <PropertyRef Name="StaffId" />
           </Key>
           <Property Name="StaffId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fam" Type="nvarchar" MaxLength="50" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="MiddlleName" Type="nvarchar" MaxLength="50" />
-          <Property Name="NumberPhone" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fam" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddlleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfEmployment" Type="datetime" Nullable="false" />
           <Property Name="DateOfBearth" Type="datetime" Nullable="false" />
-          <Property Name="Education" Type="nvarchar" MaxLength="50" />
-          <Property Name="Room" Type="nvarchar" MaxLength="50" />
-          <Property Name="WorkExperience" Type="nvarchar" MaxLength="50" />
+          <Property Name="Room" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkExperience" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SexId" Type="int" />
           <Property Name="PositionId" Type="int" />
+          <Property Name="EducationId" Type="int" />
           <Property Name="DepartmentId" Type="int" />
         </EntityType>
         <EntityType Name="Users">
@@ -50,8 +57,8 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Login" Type="nvarchar" MaxLength="10" />
-          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="Login" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Staffs_dbo_Departments_DepartmentId">
           <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
@@ -89,8 +96,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Staffs_Educations">
+          <End Role="Educations" Type="Self.Educations" Multiplicity="0..1" />
+          <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Educations">
+              <PropertyRef Name="EducationId" />
+            </Principal>
+            <Dependent Role="Staffs">
+              <PropertyRef Name="EducationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище OtdelKadrovModelContainer">
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sexes" EntityType="Self.Sexes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
@@ -107,9 +127,12 @@
             <End Role="Sexes" EntitySet="Sexes" />
             <End Role="Staffs" EntitySet="Staffs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Staffs_Educations" Association="Self.FK_Staffs_Educations">
+            <End Role="Educations" EntitySet="Educations" />
+            <End Role="Staffs" EntitySet="Staffs" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OtdelKadrovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -118,7 +141,7 @@
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK_dbo_Staffs_dbo_Departments_DepartmentId" FromRole="Departments" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Positions">
@@ -126,7 +149,7 @@
             <PropertyRef Name="PositionId" />
           </Key>
           <Property Name="PositionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK_dbo_Staffs_dbo_Positions_PositionId" FromRole="Positions" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Sexes">
@@ -134,7 +157,7 @@
             <PropertyRef Name="SexId" />
           </Key>
           <Property Name="SexId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK_dbo_Staffs_dbo_Sexes_SexId" FromRole="Sexes" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Staffs">
@@ -142,30 +165,31 @@
             <PropertyRef Name="StaffId" />
           </Key>
           <Property Name="StaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MiddlleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NumberPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddlleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateOfEmployment" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfBearth" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WorkExperience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WorkExperience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SexId" Type="Int32" />
           <Property Name="PositionId" Type="Int32" />
           <Property Name="DepartmentId" Type="Int32" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_dbo_Staffs_dbo_Departments_DepartmentId" FromRole="Staffs" ToRole="Departments" />
           <NavigationProperty Name="Positions" Relationship="Self.FK_dbo_Staffs_dbo_Positions_PositionId" FromRole="Staffs" ToRole="Positions" />
           <NavigationProperty Name="Sexes" Relationship="Self.FK_dbo_Staffs_dbo_Sexes_SexId" FromRole="Staffs" ToRole="Sexes" />
+          <Property Name="EducationId" Type="Int32" />
+          <NavigationProperty Name="Educations" Relationship="OtdelKadrovModel.FK_Staffs_Educations" FromRole="Staffs" ToRole="Educations" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Staffs_dbo_Departments_DepartmentId">
           <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
@@ -221,7 +245,32 @@
             <End Role="Sexes" EntitySet="Sexes" />
             <End Role="Staffs" EntitySet="Staffs" />
           </AssociationSet>
+          <EntitySet Name="Educations" EntityType="OtdelKadrovModel.Educations" />
+          <AssociationSet Name="FK_Staffs_Educations" Association="OtdelKadrovModel.FK_Staffs_Educations">
+            <End Role="Educations" EntitySet="Educations" />
+            <End Role="Staffs" EntitySet="Staffs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Educations">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int32" Nullable="false" />
+          <Property Name="education" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staffs" Relationship="OtdelKadrovModel.FK_Staffs_Educations" FromRole="Educations" ToRole="Staffs" />
+        </EntityType>
+        <Association Name="FK_Staffs_Educations">
+          <End Type="OtdelKadrovModel.Educations" Role="Educations" Multiplicity="0..1" />
+          <End Type="OtdelKadrovModel.Staffs" Role="Staffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Educations">
+              <PropertyRef Name="EducationId" />
+            </Principal>
+            <Dependent Role="Staffs">
+              <PropertyRef Name="EducationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -255,6 +304,7 @@
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="OtdelKadrovModel.Staffs">
               <MappingFragment StoreEntitySet="Staffs">
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="Fam" ColumnName="Fam" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -263,7 +313,6 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="DateOfEmployment" ColumnName="DateOfEmployment" />
                 <ScalarProperty Name="DateOfBearth" ColumnName="DateOfBearth" />
-                <ScalarProperty Name="Education" ColumnName="Education" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
                 <ScalarProperty Name="WorkExperience" ColumnName="WorkExperience" />
                 <ScalarProperty Name="SexId" ColumnName="SexId" />
@@ -278,6 +327,14 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="OtdelKadrovModel.Educations">
+              <MappingFragment StoreEntitySet="Educations">
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

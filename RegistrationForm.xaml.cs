@@ -29,6 +29,9 @@ namespace PersonalDepartmentDegtyannikovIN3802
         }
 
 
+
+
+
         bool CheckRusChars(string txt)
         {
                 Regex regex = new Regex("[а-я А-Я]");
@@ -106,6 +109,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
         private void TbSurname_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             CheckNumbers(e);
+            
         }
 
         private void TbName_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -143,20 +147,57 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(PassBox.Password))
-            {
+            bool reg = true;
+            
+                
 
-                foreach (var usr in DB.db.Users)
+                List<System.Windows.Controls.TextBox> textBoxes = new List<System.Windows.Controls.TextBox>() { TbLogin, TbMiddleName, TbName, TbPhone, TbSurname, Address };
+
+                foreach (System.Windows.Controls.TextBox tb in textBoxes)
                 {
-                    if (TbLogin.Text == usr.Login && PassBox.Password == usr.Password)
+                    if (String.IsNullOrEmpty(tb.Text))
                     {
-
-                        System.Windows.Forms.MessageBox.Show("This user is exits yet!", "Error!");
-                       // reg = false;
+                        reg = false;
+                        tb.Background = Brushes.Red;
+                        LabelHint.Visibility = Visibility;
 
                     }
                     else
                     {
+                        reg = false;
+                        tb.Background = Brushes.White;
+                        LabelHint.Visibility = Visibility.Hidden;
+                    }
+
+                    
+                }
+            
+                if (String.IsNullOrEmpty(PassBox.Password))
+                {
+                    PassBox.Background = Brushes.Red;
+                    LabelHint.Visibility = Visibility;
+                }
+                else
+                {
+                    PassBox.Background = Brushes.White;
+                    LabelHint.Visibility = Visibility.Hidden;
+                }
+
+            if (!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(PassBox.Password))
+            {
+                
+                foreach (var usr in DB.db.Users)
+                {
+                    if (TbLogin.Text == usr.Login && PassBox.Password == usr.Password)
+                    {
+                        reg = false;
+                        System.Windows.Forms.MessageBox.Show("This user is exits yet!", "Error!");
+                        
+
+                    }
+                    else
+                    {
+                        reg = true;
                         System.Windows.Forms.MessageBox.Show("You are registered!", "UwU:3");
                         break;
                     }
@@ -166,15 +207,64 @@ namespace PersonalDepartmentDegtyannikovIN3802
             }
 
 
-           // if (reg)
-           // {
-               // String date = DpEmployment.GetValue(TopProperty).ToString();
 
+
+
+
+
+            if (TbPhone.Text.Length < 8)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Номер телефона должен быть длинной в 8 символов.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+
+
+
+            if (DpEmployment.SelectedDate == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите дату приёма на работу", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(DpDateOfBirth.SelectedDate == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите дату рождения", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(CbDepartment.SelectedItem == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите отдел из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(CbEducation.SelectedItem == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите образование из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(CbPosition.SelectedItem == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите должность из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(CbSex.SelectedItem == null)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Выберите пол из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (reg)
+
+            {
                 Users user = new Users
                 {
                     Login = TbLogin.Text,
                     Password = PassBox.Password,
-                   // Fur_Role = CbRoles.SelectedItem as Fur_Role,
+
                 };
 
                 Staffs staffs = new Staffs
@@ -191,24 +281,30 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     Positions = CbPosition.SelectedItem as Positions,
                 };
 
-            
+
 
                 DB.db.Staffs.Add(staffs);
                 DB.db.SaveChanges();
 
                 DB.db.Users.Add(user);
                 DB.db.SaveChanges();
+            }
+
+            
 
 
 
 
 
-          //  }
+            //  }
             //else
-           // {
-             //   CheckRegistr(ref counter, charac);
-               // MessageBox.Show("Error registration!", "Error!");
-           // }
+            // {
+            //   CheckRegistr(ref counter, charac);
+            // MessageBox.Show("Error registration!", "Error!");
+            // }
+
+            
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -218,15 +314,28 @@ namespace PersonalDepartmentDegtyannikovIN3802
             DB.db.Sexes.Load();
             DB.db.Positions.Load();
             DB.db.Departments.Load();
+            DB.db.Educations.Load();
             
             CbSex.ItemsSource = DB.db.Sexes.ToList();
             CbPosition.ItemsSource = DB.db.Positions.ToList();
             CbDepartment.ItemsSource = DB.db.Departments.ToList();
-            if(CbEducation.SelectedItem == null)
-            {
-                return;
-            }
-            CbEducation.ItemsSource = DB.db.Staffs.ToList();
+            CbEducation.ItemsSource = DB.db.Educations.ToList();
+        }
+
+        private void TbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = CheckEngChars(e.Text);
+            
+        }
+
+        private void TbName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = CheckEngChars(e.Text);
+        }
+
+        private void TbMiddleName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = CheckEngChars(e.Text);
         }
     }
 }

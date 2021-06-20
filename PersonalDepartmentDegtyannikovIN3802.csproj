@@ -68,8 +68,12 @@
     <Compile Include="Departments.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Educations.cs">
+      <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DB.cs" />
     <Compile Include="Model\Departments.cs" />
+    <Compile Include="Model\Educations.cs" />
     <Compile Include="Model\Positions.cs" />
     <Compile Include="Model\Sexes.cs" />
     <Compile Include="Model\Staffs.cs" />
@@ -162,6 +166,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Img\checkform.png" />
     <Content Include="PersonalDepartmentDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PersonalDepartmentDB.Context.cs</LastGenOutput>
