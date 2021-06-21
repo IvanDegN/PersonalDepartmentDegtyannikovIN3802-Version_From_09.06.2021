@@ -12,11 +12,11 @@
             <RowDefinition Height="250px"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#696969"></Rectangle>
-        <Rectangle Grid.Row="2" Fill="#696969"></Rectangle>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="ООО Работа" FontSize="20" Foreground="GhostWhite"></Label>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Отдел кадров предприятия" FontSize="20" Foreground="GhostWhite"></Label>
-        <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" IvanDegN copyright © 2021" FontSize="20" Foreground="GhostWhite"></Label>
+        <Rectangle Fill="#FFB4B4B4"></Rectangle>
+        <Rectangle Grid.Row="2" Fill="#FFB4B4B4"></Rectangle>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="ООО Работа" FontSize="20" Foreground="Black" FontFamily="Comic Sans MS"></Label>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Отдел кадров предприятия" FontSize="20" Foreground="Black" FontFamily="Comic Sans MS"></Label>
+        <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content=" IvanDegN copyright © 2021" FontSize="20" Foreground="Black" FontFamily="Comic Sans MS"></Label>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -28,10 +28,10 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="1" Margin="10"></Button>
-            <Button Grid.Column="1" Grid.Row="1" Margin="10" Content="Управление сотрудниками" FontSize="18"></Button>
-            <Button Grid.Column="2" Grid.Row="1" Margin="10"></Button>
-            <Button Grid.Column="2" Grid.Row="2" Margin="105,30,10,10" Content="Выйти" FontSize="20" Click="ButnExitMainForm"></Button>
+            <Button Grid.Column="0" Grid.Row="1" Margin="10" FontFamily="Comic Sans MS"></Button>
+            <Button Grid.Column="1" Grid.Row="1" Margin="10" Content="Управление сотрудниками" FontSize="18" Name="BtnManageStaffs" Click="BtnManageStaffs_Click" FontFamily="Comic Sans MS"></Button>
+            <Button Grid.Column="2" Grid.Row="1" Margin="10" FontFamily="Comic Sans MS"></Button>
+            <Button Grid.Column="2" Grid.Row="2" Margin="105,30,10,10" Content="Выйти" FontSize="20" Click="ButnExit" FontFamily="Comic Sans MS"></Button>
         </Grid>
     </Grid>
 </Window>

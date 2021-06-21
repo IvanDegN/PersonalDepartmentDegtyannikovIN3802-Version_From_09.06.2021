@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,6 +23,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
     /// </summary>
     public partial class RegistrationForm : Window
     {
+        bool reg = true;
         public void CheckNumbers(System.Windows.Input.KeyEventArgs e)
         {
             if ((e.Key < Key.A) || (e.Key > Key.Z))
@@ -48,6 +50,18 @@ namespace PersonalDepartmentDegtyannikovIN3802
         {
             Regex regex = new Regex("[^+1234567890]");
             return regex.IsMatch(txt);
+        }
+
+        bool WorkExp(string txt)
+        {
+            Regex regex = new Regex("[^1234567890.]");
+            return regex.IsMatch(txt);
+        }
+
+        bool OnlyNumbers(string num)
+        {
+            Regex regex = new Regex("[^1234567890]");
+            return regex.IsMatch(num);
         }
 
 
@@ -142,16 +156,36 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
         private void TbPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+
             e.Handled = OnlyNumbersAndPlus(e.Text);
+            if (TbPhone.Text.Length >= 12)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Номер телефона должен быть длинной в 12 символов.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TbPhone.Text = TbPhone.Text.Remove(TbPhone.Text.Length - 1);
+                TbPhone.SelectionStart = TbPhone.Text.Length;
+            }
+
+
+            if (Regex.IsMatch(TbPhone.Text, @"^\+[1-9]\d{3}-\d{3}-\d{4}$"))
+            {
+                System.Windows.Forms.MessageBox.Show("True");
+            }
+            else
+            {
+               // System.Windows.MessageBox.Show("False");
+            }
+
+
         }
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            bool reg = true;
+            
             
                 
 
-                List<System.Windows.Controls.TextBox> textBoxes = new List<System.Windows.Controls.TextBox>() { TbLogin, TbMiddleName, TbName, TbPhone, TbSurname, Address };
+                List<System.Windows.Controls.TextBox> textBoxes = new List<System.Windows.Controls.TextBox>() { TbLogin, TbMiddleName, TbName, TbPhone, TbSurname, Address, TbWorkExperience, TbRoom };
 
                 foreach (System.Windows.Controls.TextBox tb in textBoxes)
                 {
@@ -209,16 +243,9 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
 
 
+            
 
-
-
-            if (TbPhone.Text.Length < 8)
-            {
-                reg = false;
-                System.Windows.Forms.MessageBox.Show("Номер телефона должен быть длинной в 8 символов.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            }
-
+            
 
 
             if (DpEmployment.SelectedDate == null)
@@ -257,6 +284,10 @@ namespace PersonalDepartmentDegtyannikovIN3802
                 System.Windows.Forms.MessageBox.Show("Выберите пол из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+            
+
+            
+
             if (reg)
 
             {
@@ -279,12 +310,29 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     Sexes = CbSex.SelectedItem as Sexes,
                     Departments = CbDepartment.SelectedItem as Departments,
                     Positions = CbPosition.SelectedItem as Positions,
+                    WorkExperience = TbWorkExperience.Text,
+                    Room = TbRoom.Text,
+                    Educations = CbEducation.SelectedItem as Educations
+                    
                 };
 
 
 
                 DB.db.Staffs.Add(staffs);
-                DB.db.SaveChanges();
+                try
+                {
+                    DB.db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            System.Windows.Forms.MessageBox.Show("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                        }
+                    }
+                }
 
                 DB.db.Users.Add(user);
                 DB.db.SaveChanges();
@@ -336,6 +384,16 @@ namespace PersonalDepartmentDegtyannikovIN3802
         private void TbMiddleName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = CheckEngChars(e.Text);
+        }
+
+        private void TbWorkExperience_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = WorkExp(e.Text);
+        }
+
+        private void TbRoom_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = OnlyNumbers(e.Text);
         }
     }
 }

@@ -1,0 +1,82 @@
+﻿<Window x:Class="PersonalDepartmentDegtyannikovIN3802.ManageStaffs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
+        mc:Ignorable="d"
+        Title="ManageStaffs" Height="450" Width="929" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFB4B4B4"></Rectangle>
+        <Rectangle Fill="#FFB4B4B4" Grid.Row="2"></Rectangle>
+        <Image Source="Img/manage.jpg" Margin="0,10,545,10"></Image>
+        <Label Grid.Row="0" Content="Управление сотрудниками" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS"></Label>
+        <Label Grid.Row="2" Content="IvanDegN copyright © 2021" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS"></Label>
+        <Menu Grid.Row="1" Height="30" Margin="0,0,0,250">
+            <MenuItem Header="Меню">
+                <MenuItem Header="Отменить"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Создать"></MenuItem>
+                <MenuItem Header="Редактировать"></MenuItem>
+                <MenuItem Header="Сохранить"></MenuItem>
+                <MenuItem Header="Найти"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Удалить"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Margin="0,35,0,210">
+            <Button Name="addBtn" ToolTip="Добавить сотрудника" >
+                <Image Source="Img/plus.png"></Image>
+            </Button>
+            <Button Name="delBtn" ToolTip="Удалить сотрудника" >
+                <Image Source="Img/del.png"></Image>
+            </Button>
+            <Button Name="editBtn" ToolTip="Редактировать данные сотрудника" >
+                <Image Source="Img/edit.png"></Image>
+            </Button>
+            <Button Name="findBtn" ToolTip="Найти сотрудника">
+                <Image Source="Img/find.png"></Image>
+            </Button>
+            <Button Name="saveBtn" ToolTip="Сохранить изменения">
+                <Image Source="Img/save.png"></Image>
+            </Button>
+            <Button Name="UndoBtn" ToolTip="Отменить изменения">
+                <Image Source="Img/cross.png"></Image>
+            </Button>
+        </ToolBar>
+        <TextBlock Margin="0,75,10,175" Text="Список сотрудников" Grid.Row="1" Height="30"></TextBlock>
+        <DataGrid Grid.Row="1" 
+                  Margin="0,105,0,0" 
+                  Name="GridEmployee" 
+                  SelectionMode="Extended" 
+                  SelectionUnit="FullRow" 
+                  CanUserAddRows="True" 
+                  CanUserDeleteRows="True" 
+                  CanUserReorderColumns="False" 
+                  CanUserResizeRows="True"  
+                  CanUserResizeColumns="True" 
+                  CanUserSortColumns="True" 
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер телефона"></DataGridTextColumn>
+                <DataGridTextColumn Header="Адрес"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Дата приёма на работу"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Дата рождения"></DataGridTemplateColumn>
+                <DataGridTextColumn Header="Кабинет"></DataGridTextColumn>
+                <DataGridTextColumn Header="Стаж работы"></DataGridTextColumn>
+                <DataGridComboBoxColumn Header="Пол"></DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Должность"></DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Образование"></DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Отдел"></DataGridComboBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

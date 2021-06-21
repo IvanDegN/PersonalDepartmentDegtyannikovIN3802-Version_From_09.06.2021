@@ -26,11 +26,18 @@ namespace PersonalDepartmentDegtyannikovIN3802
             
         }
 
-        private void ButnExitMainForm(object sender, RoutedEventArgs e)
+        private void ButnExit(object sender, RoutedEventArgs e)
         {
             LoginForm loginForm = new LoginForm();
             this.Close();
             loginForm.Show();
+        }
+
+        private void BtnManageStaffs_Click(object sender, RoutedEventArgs e)
+        {
+            ManageStaffs manageStaffs = new ManageStaffs();
+            this.Close();
+            manageStaffs.Show();
         }
     }
 }

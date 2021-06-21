@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
         mc:Ignorable="d"
-        Title="Войти" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Войти" Height="470" Width="400" WindowStartupLocation="CenterScreen" FontFamily="Comic Sans MS">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="100px"></RowDefinition>
             <RowDefinition Height="300px"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#696969"></Rectangle>
-        <Rectangle Grid.Row="2" Fill="#696969"></Rectangle>
+        <Rectangle Fill="#FFB4B4B4"></Rectangle>
+        <Rectangle Grid.Row="2" Fill="#FFB4B4B4"></Rectangle>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -26,13 +26,15 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="1" Margin="27,69,31,81" Grid.ColumnSpan="2" Content="Войти" Grid.RowSpan="2" FontSize="15" Grid.Column="1"/>
-            <Button Grid.Row="2" Grid.ColumnSpan="4" Margin="50,55,50,10" Content="Регистрация" FontSize="15" Click="ButnReg" />
-            <Label Content="Логин: " Margin="36,32,72,35" Grid.ColumnSpan="2" FontSize="15" RenderTransformOrigin="0.4,0.468"/>
-            <Label Content="Пароль: " Margin="36,58,88,10" Grid.ColumnSpan="2" RenderTransformOrigin="0.604,-0.055" FontSize="15"/>
-            <PasswordBox Grid.Column="1" Margin="10,70,82,10" Grid.ColumnSpan="2"/>
-            <TextBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
+            <Button Grid.Row="1" Margin="27,69,31,81" Grid.ColumnSpan="2" Content="Войти" Grid.RowSpan="2" FontSize="15" Grid.Column="1" Name="BtnLogin" Click="BtnLogin_Click" FontFamily="Comic Sans MS"/>
+            <Button Grid.Row="2" Grid.ColumnSpan="4" Margin="50,55,50,10" Content="Регистрация" FontSize="15" Click="ButnReg" FontFamily="Comic Sans MS" />
+            <Label Content="Логин: " Margin="36,32,72,35" Grid.ColumnSpan="2" FontSize="15" RenderTransformOrigin="0.4,0.468" FontFamily="Comic Sans MS"/>
+            <Label Content="Пароль: " Margin="36,58,88,10" Grid.ColumnSpan="2" RenderTransformOrigin="0.604,-0.055" FontSize="15" FontFamily="Comic Sans MS"/>
+            <PasswordBox Grid.Column="1" Margin="10,70,79,10" Grid.ColumnSpan="2" Name="TbPassBox" PreviewTextInput="TbPassBox_PreviewTextInput"/>
+            <TextBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Name="TbLogin" PreviewTextInput="TbLogin_PreviewTextInput" FontFamily="Comic Sans MS"/>
+            <Label Content="Заполните необходимые поля" Grid.Column="1" HorizontalAlignment="Left" Margin="7,26,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="200" Foreground="red" Visibility="Hidden" Name="HintLabel" FontFamily="Comic Sans MS" />
         </Grid>
-        <Label Grid.Row="0" Content="Форма входа" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Foreground="GhostWhite"></Label>
+        <Label Grid.Row="0" Content="Форма входа" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Foreground="Black" FontFamily="Comic Sans MS" Margin="200,0,0,10"></Label>
+        <Image Source="Img/entry.png" Margin="10,10,267,10"></Image>
     </Grid>
 </Window>
