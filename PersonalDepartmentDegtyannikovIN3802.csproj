@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddStaff.xaml.cs">
+      <DependentUpon>AddStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\DataCommands.cs" />
     <Compile Include="Departments.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
@@ -76,7 +80,11 @@
     </Compile>
     <Compile Include="Model\DB.cs" />
     <Compile Include="Model\Departments.cs" />
+    <Compile Include="Model\EducationList.cs" />
     <Compile Include="Model\Educations.cs" />
+    <Compile Include="Model\ListDepartment.cs" />
+    <Compile Include="Model\ListPosition.cs" />
+    <Compile Include="Model\ListSex.cs" />
     <Compile Include="Model\Positions.cs" />
     <Compile Include="Model\Sexes.cs" />
     <Compile Include="Model\Staffs.cs" />
@@ -110,6 +118,10 @@
     <Compile Include="Users.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Page Include="AddStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,6 +194,7 @@
     <Resource Include="Img\save.png" />
     <Resource Include="Img\cross.png" />
     <Resource Include="Img\del.png" />
+    <Resource Include="Img\add-user.png" />
     <Content Include="PersonalDepartmentDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PersonalDepartmentDB.Context.cs</LastGenOutput>

@@ -8,9 +8,11 @@ namespace PersonalDepartmentDegtyannikovIN3802
 {
    partial class Staffs
     {
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+        static Staffs staffs;
+
+      ///  public static Staffs CreateStaff(int StaffId, string Fam, string Name, string MiddlleName, string NumberPhone, string Address, DateTime)
+      //  {
+
+      //  }
     }
 }

@@ -5,7 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
         mc:Ignorable="d"
-        Title="ManageStaffs" Height="450" Width="929" WindowStartupLocation="CenterScreen">
+        Title="ManageStaffs" Height="450" Width="1050" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    
+    <Window.Resources>
+        <DataTemplate x:Key="DateTemplateDateOfEmployment">
+            <TextBlock
+                Text="{Binding DateOfEmployment, StringFormat={}{0:dd\.}{0:MM\.}{0:yyyy}}"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+            </TextBlock>
+        </DataTemplate>
+        <DataTemplate x:Key="EditingDateTemplateDateOfEmployment">
+            <DatePicker SelectedDate="{Binding DateOfEmployment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DateTemplateDateOfBearth">
+            <TextBlock
+                Text="{Binding DateOfBearth, StringFormat={}{0:dd\.}{0:MM\.}{0:yyyy}}"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+            </TextBlock>
+        </DataTemplate>
+        <DataTemplate x:Key="EditingDateTemplateDateOfBearth">
+            <DatePicker SelectedDate="{Binding DateOfBearth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+        <Style x:Key="Error" TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="02"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local:ListSex x:Key="ListSex"/>
+        <local:ListPosition x:Key="ListPosition"/>
+        <local:EducationList x:Key="ListEducation"/>
+        <local:ListDepartment x:Key="ListDepartment"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding 
+            Command="Undo" 
+            Executed="UndoCommandBinding_Executed"
+            CanExecute="UndoCommandBinding_CanExecuted">
+        </CommandBinding>
+        <CommandBinding
+            Command="New"
+            Executed="NewCommandBinding_Executed"
+            CanExecute="NewCommandBinding_CanExecute">
+        </CommandBinding>
+        <CommandBinding
+            Command="Save"
+            Executed="SaveCommandBinding_Executed"
+            CanExecute="SaveCommandBinding_CanExecute">
+        </CommandBinding>
+        <CommandBinding
+            Command="Find"
+            Executed="FindCommandBinding_Executed"
+            CanExecute="FindCommandBinding_CanExecute">
+        </CommandBinding>
+        <CommandBinding
+            Command="Delete"
+            Executed="DeleteCommandBinding_Executed"
+            CanExecute="DeleteCommandBinding_CanExecute">
+        </CommandBinding>
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
@@ -19,35 +83,36 @@
         <Label Grid.Row="2" Content="IvanDegN copyright © 2021" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS"></Label>
         <Menu Grid.Row="1" Height="30" Margin="0,0,0,250">
             <MenuItem Header="Меню">
-                <MenuItem Header="Отменить"></MenuItem>
+                <MenuItem Header="Отменить" Command="Undo"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Создать"></MenuItem>
+                <MenuItem Header="Создать" Command="New"></MenuItem>
                 <MenuItem Header="Редактировать"></MenuItem>
-                <MenuItem Header="Сохранить"></MenuItem>
-                <MenuItem Header="Найти"></MenuItem>
+                <MenuItem Header="Сохранить" Command="Save"></MenuItem>
+                <MenuItem Header="Найти" Command="Find"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Удалить"></MenuItem>
+                <MenuItem Header="Удалить" Command="Delete"></MenuItem>
             </MenuItem>
         </Menu>
         <ToolBar Grid.Row="1" Margin="0,35,0,210">
-            <Button Name="addBtn" ToolTip="Добавить сотрудника" >
+            <Button Name="addBtn" ToolTip="Добавить сотрудника" Command="New" Click="addBtn_Click" >
                 <Image Source="Img/plus.png"></Image>
             </Button>
-            <Button Name="delBtn" ToolTip="Удалить сотрудника" >
+            <Button Name="delBtn" ToolTip="Удалить сотрудника"  Click="delBtn_Click" >
                 <Image Source="Img/del.png"></Image>
             </Button>
-            <Button Name="editBtn" ToolTip="Редактировать данные сотрудника" >
+            <Button Name="editBtn" ToolTip="Редактировать данные сотрудника" VerticalAlignment="Top" Click="editBtn_Click" >
                 <Image Source="Img/edit.png"></Image>
             </Button>
-            <Button Name="findBtn" ToolTip="Найти сотрудника">
+            <Button Name="findBtn" ToolTip="Найти сотрудника" Command="Find">
                 <Image Source="Img/find.png"></Image>
             </Button>
-            <Button Name="saveBtn" ToolTip="Сохранить изменения">
+            <Button Name="saveBtn" ToolTip="Сохранить изменения" Click="saveBtn_Click">
                 <Image Source="Img/save.png"></Image>
             </Button>
-            <Button Name="UndoBtn" ToolTip="Отменить изменения">
+            <Button Name="UndoBtn" ToolTip="Отменить изменения"  Click="UndoBtn_Click">
                 <Image Source="Img/cross.png"></Image>
             </Button>
+            
         </ToolBar>
         <TextBlock Margin="0,75,10,175" Text="Список сотрудников" Grid.Row="1" Height="30"></TextBlock>
         <DataGrid Grid.Row="1" 
@@ -55,27 +120,59 @@
                   Name="GridEmployee" 
                   SelectionMode="Extended" 
                   SelectionUnit="FullRow" 
-                  CanUserAddRows="True" 
-                  CanUserDeleteRows="True" 
+                  CanUserAddRows="False" 
+                  CanUserDeleteRows="False" 
                   CanUserReorderColumns="False" 
                   CanUserResizeRows="True"  
                   CanUserResizeColumns="True" 
                   CanUserSortColumns="True" 
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding}"
+                  HorizontalAlignment="Center"
+                  IsReadOnly="True"
+                  
+                  MaxWidth="1000" MaxHeight="300"
+                  RowBackground="#FFFFE0"
+                  AlternatingRowBackground="#FAFAD2"
+                  BorderBrush="Black"
+                  BorderThickness="1"
+                  RowHeight="25"
+                  Cursor="Hand"
+                  Width="1000">
+                  
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия"></DataGridTextColumn>
-                <DataGridTextColumn Header="Имя"></DataGridTextColumn>
-                <DataGridTextColumn Header="Отчество"></DataGridTextColumn>
-                <DataGridTextColumn Header="Номер телефона"></DataGridTextColumn>
-                <DataGridTextColumn Header="Адрес"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Дата приёма на работу"></DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Дата рождения"></DataGridTemplateColumn>
-                <DataGridTextColumn Header="Кабинет"></DataGridTextColumn>
-                <DataGridTextColumn Header="Стаж работы"></DataGridTextColumn>
-                <DataGridComboBoxColumn Header="Пол"></DataGridComboBoxColumn>
-                <DataGridComboBoxColumn Header="Должность"></DataGridComboBoxColumn>
-                <DataGridComboBoxColumn Header="Образование"></DataGridComboBoxColumn>
-                <DataGridComboBoxColumn Header="Отдел"></DataGridComboBoxColumn>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Fam, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddlleName, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер телефона" Binding="{Binding NumberPhone, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Address, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Дата приёма на работу" CellTemplate="{StaticResource DateTemplateDateOfEmployment}" CellEditingTemplate="{StaticResource EditingDateTemplateDateOfEmployment}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Дата рождения" CellTemplate="{StaticResource DateTemplateDateOfBearth}" CellEditingTemplate="{StaticResource EditingDateTemplateDateOfBearth}"></DataGridTemplateColumn>
+                <DataGridTextColumn Header="Кабинет" Binding="{Binding  Room, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Стаж работы" Binding="{Binding WorkExperience, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridComboBoxColumn Header="Пол" ItemsSource="{Binding Source={StaticResource ListSex}}" 
+                                        DisplayMemberPath="sex" 
+                                        SelectedValueBinding="{Binding Path=sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        SelectedValuePath="Sex">
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Должность"
+                                        ItemsSource="{Binding Source={StaticResource ListPosition}}"
+                                        DisplayMemberPath="position"
+                                        SelectedValueBinding="{Binding Path=position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="Position">
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Образование"
+                                        ItemsSource="{Binding Source={StaticResource ListEducation}}"
+                                        DisplayMemberPath="education"
+                                        SelectedValueBinding="{Binding Path=education, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="Education">
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Отдел"
+                                        ItemsSource="{Binding Source={StaticResource ListDepartment}}"
+                                        DisplayMemberPath="department"
+                                        SelectedValueBinding="{Binding Path=department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="Department">
+                </DataGridComboBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
