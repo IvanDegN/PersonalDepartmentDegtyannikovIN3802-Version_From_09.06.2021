@@ -316,42 +316,11 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     
                 };
 
-
-
                 DB.db.Staffs.Add(staffs);
-                try
-                {
-                    DB.db.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in entityValidationErrors.ValidationErrors)
-                        {
-                            System.Windows.Forms.MessageBox.Show("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
-                        }
-                    }
-                }
-
+                DB.db.SaveChanges();
                 DB.db.Users.Add(user);
                 DB.db.SaveChanges();
             }
-
-            
-
-
-
-
-
-            //  }
-            //else
-            // {
-            //   CheckRegistr(ref counter, charac);
-            // MessageBox.Show("Error registration!", "Error!");
-            // }
-
-            
 
         }
 

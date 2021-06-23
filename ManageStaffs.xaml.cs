@@ -24,81 +24,58 @@ namespace PersonalDepartmentDegtyannikovIN3802
     /// </summary>
     public partial class ManageStaffs : Window
     {
-        private bool isDirty = true;
+        
 
         ObservableCollection<Staffs> ListStaffs = new ObservableCollection<Staffs>();
+        
 
         public ManageStaffs()
         {
             InitializeComponent();
+            Roles roles = new Roles();
+            if(roles.RoleId == 2)
+            {
+                addBtn.Visibility = Visibility.Hidden;
+                delBtn.Visibility = Visibility.Hidden;
+                editBtn.Visibility = Visibility.Hidden;
+                BtnPosition.Visibility = Visibility.Hidden;
+                BtnEducation.Visibility = Visibility.Hidden;
+                BtnDepartment.Visibility = Visibility.Hidden;
+                System.Windows.Controls.MenuItem menuItem = new System.Windows.Controls.MenuItem();
+                menuItem.IsEnabled = false;
+                menuItem.Visibility = Visibility.Hidden;
+            }
+
+            searchText.Visibility = Visibility.Hidden;
+            TextBlockSurname.Visibility = Visibility.Hidden;
+            TextBlockPosititon.Visibility = Visibility.Hidden;
+            TextBoxSurname.Visibility = Visibility.Hidden;
+            ComboBoxPosition.Visibility = Visibility.Hidden;
+            ButtonFindSurname.Visibility = Visibility.Hidden;
+            ButtonFindPosition.Visibility = Visibility.Hidden;
+
+            if(roles.Role == "user")
+            {
+                addBtn.Visibility = Visibility.Hidden;
+                addBtn.IsEnabled = false;
+                delBtn.Visibility = Visibility.Hidden;
+                editBtn.Visibility = Visibility.Hidden;
+                BtnPosition.Visibility = Visibility.Hidden;
+                BtnEducation.Visibility = Visibility.Hidden;
+                BtnDepartment.Visibility = Visibility.Hidden;
+                System.Windows.Controls.MenuItem menuItem = new System.Windows.Controls.MenuItem();
+                menuItem.IsEnabled = false;
+                menuItem.Visibility = Visibility.Hidden;
+            }
 
         }
-
-        private void UndoCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Отмена");
-            isDirty = false;
-            
-        }
-
-        private void UndoCommandBinding_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
-
-        private void NewCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void NewCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
-
-        private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            
-           
-        }
-
-        private void SaveCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = !isDirty;
-        }
-
-        private void FindCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Найти");
-            isDirty = true;
-        }
-
-        private void FindCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
-
-
-
-        private void DeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-
-        private void DeleteCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
+        
+        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GetStaffs();
             GridEmployee.SelectedIndex = 0;
-
-
-
-
         }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
@@ -108,7 +85,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
             {
                 index = GridEmployee.CurrentColumn.DisplayIndex;
                 GridEmployee.IsReadOnly = false;
-                isDirty = false;
+                
                 GridEmployee.BeginEdit();
             }
             else
@@ -173,33 +150,124 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
         private void UndoBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (GridEmployee.SelectedItem == GridEmployee.SelectedItem)
-            {
-                MessageBox.Show("Изменений не было");
-                UndoBtn.IsEnabled = false;
-            }
-            else
-            {
                 RewriteStaffs();
                 GridEmployee.IsReadOnly = true;
-                isDirty = true;
-            }
-            
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (GridEmployee.SelectedItem == GridEmployee.SelectedItem)
+                DB.db.SaveChanges();
+                RewriteStaffs();
+                GridEmployee.IsReadOnly = true;   
+        }
+
+        private void ButtonFindSurname_Click(object sender, RoutedEventArgs e)
+        {
+            string surename = TextBoxSurname.Text;
+            ListStaffs.Clear();
+            var staff = DB.db.Staffs;
+            var query = from item in staff
+                        where item.Fam == surename
+                        select item;
+            foreach(Staffs staffs in query)
             {
-                MessageBox.Show("Изменений не было");
-                saveBtn.IsEnabled = false;
+                ListStaffs.Add(staffs);
+            }
+            if(ListStaffs.Count > 0)
+            {
+                GridEmployee.ItemsSource = ListStaffs;
+                ButtonFindSurname.IsEnabled = true;
+                ButtonFindPosition.IsEnabled = false;
             }
             else
             {
-                DB.db.SaveChanges();
-                isDirty = true;
-                GridEmployee.IsReadOnly = true;
+                MessageBox.Show("Сотрудник с фамилией \n" + surename + "\n не найден",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
+        }
+
+        
+
+        private void TextBoxSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonFindSurname.IsEnabled = true;
+            ButtonFindPosition.IsEnabled = true;
+            ComboBoxPosition.SelectedIndex = -1;
+        }
+
+        
+
+        private void ButtonFindPosition_Click(object sender, RoutedEventArgs e)
+        {
+            ListStaffs.Clear();
+            
+            Positions positions = ComboBoxPosition.SelectedItem as Positions;
+            var position = DB.db.Staffs;
+            var query = from item in position
+                        where item.PositionId == positions.PositionId
+                        orderby item.Fam
+                        select item;
+            foreach (Staffs pos in query)
+            {
+                ListStaffs.Add(pos);
+            }
+            GridEmployee.ItemsSource = ListStaffs;
+
+            if(ListStaffs.Count > 0)
+            {
+                GridEmployee.ItemsSource = ListStaffs;
+               
+            }
+            else
+            {
+                MessageBox.Show("Сотрудник с должностью \n" + positions + "\n не найден", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ComboBoxPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ButtonFindPosition.IsEnabled = true;
+            ButtonFindSurname.IsEnabled = false;
+            TextBoxSurname.Text = "";
+        }
+
+         
+
+        private void BtnPosition_Click(object sender, RoutedEventArgs e)
+        {
+            ManagePosition managePosition = new ManagePosition();
+            managePosition.Show();
+        }
+
+        private void BtnEducation_Click(object sender, RoutedEventArgs e)
+        {
+            ManageEducation manageEducation = new ManageEducation();
+            manageEducation.Show();
+        }
+
+        private void BtnDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            ManageDepartment manageDepartment = new ManageDepartment();
+            manageDepartment.Show();
+        }
+
+        private void refreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RewriteStaffs();
+            GridEmployee.IsReadOnly = false;
+           
+        }
+
+        private void findBtn_Click(object sender, RoutedEventArgs e)
+        {
+            searchText.Visibility = Visibility.Visible;
+            TextBlockSurname.Visibility = Visibility.Visible;
+            TextBlockPosititon.Visibility = Visibility.Visible;
+            TextBoxSurname.Visibility = Visibility.Visible;
+            ComboBoxPosition.Visibility = Visibility.Visible;
+            ButtonFindSurname.Visibility = Visibility.Visible;
+            ButtonFindPosition.Visibility = Visibility.Visible;
         }
     }
 

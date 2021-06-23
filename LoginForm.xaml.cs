@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PersonalDepartmentDegtyannikovIN3802
 {
@@ -43,6 +44,46 @@ namespace PersonalDepartmentDegtyannikovIN3802
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
            
+        try
+        {
+                bool login = false;
+                int IdRole = 0;
+                Roles roles = new Roles();
+                foreach(var user in DB.db.Users)
+                {
+                    if(TbLogin.Text == user.Login && TbPassBox.Password == user.Password)
+                    {
+                        login = true;
+                        IdRole = (int)user.RoleId;
+                        roles = user.Roles;
+                        break;
+                    }
+                }
+        
+            
+
+            if(login)
+            {
+                    MessageBox.Show($"Вы успешно зашли под {roles}");
+                    switch (IdRole)
+                    {
+                        case 1:
+                            ManageStaffs manageStaffs = new ManageStaffs();
+                            manageStaffs.Show();
+                            break;
+
+                        case 2:
+                            ManageStaffs manageStaffss = new ManageStaffs();
+                            manageStaffss.Show();
+                            
+                            break;
+                    }
+            }
+        }
+        catch
+        {
+
+        }
 
             if(TbLogin.Text == "")
             {

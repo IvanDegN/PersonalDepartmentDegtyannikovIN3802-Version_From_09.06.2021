@@ -75,6 +75,15 @@
     <Compile Include="Educations.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ManageDepartment.xaml.cs">
+      <DependentUpon>ManageDepartment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEducation.xaml.cs">
+      <DependentUpon>ManageEducation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePosition.xaml.cs">
+      <DependentUpon>ManagePosition.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageStaffs.xaml.cs">
       <DependentUpon>ManageStaffs.xaml</DependentUpon>
     </Compile>
@@ -84,8 +93,10 @@
     <Compile Include="Model\Educations.cs" />
     <Compile Include="Model\ListDepartment.cs" />
     <Compile Include="Model\ListPosition.cs" />
+    <Compile Include="Model\ListRoles.cs" />
     <Compile Include="Model\ListSex.cs" />
     <Compile Include="Model\Positions.cs" />
+    <Compile Include="Model\Roles.cs" />
     <Compile Include="Model\Sexes.cs" />
     <Compile Include="Model\Staffs.cs" />
     <Compile Include="PersonalDepartmentDB.Context.cs">
@@ -109,6 +120,9 @@
     <Compile Include="RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sexes.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
@@ -118,6 +132,7 @@
     <Compile Include="Users.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ValidationRules\PhoneRule.cs" />
     <Page Include="AddStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,6 +156,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManageDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageEducation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagePosition.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManageStaffs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +222,7 @@
     <Resource Include="Img\cross.png" />
     <Resource Include="Img\del.png" />
     <Resource Include="Img\add-user.png" />
+    <Resource Include="Img\refresh.png" />
     <Content Include="PersonalDepartmentDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PersonalDepartmentDB.Context.cs</LastGenOutput>

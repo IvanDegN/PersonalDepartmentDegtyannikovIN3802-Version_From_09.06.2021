@@ -31,5 +31,6 @@ namespace PersonalDepartmentDegtyannikovIN3802
         public virtual DbSet<Staffs> Staffs { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Educations> Educations { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
     }
 }

@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
+        xmlns:core="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
+        xmlns:rule="clr-namespace:PersonalDepartmentDegtyannikovIN3802.ValidationRules"
         mc:Ignorable="d"
-        Title="ManageStaffs" Height="450" Width="1050" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    
+        Title="Управление сотрудниками" Height="450" Width="1461" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+
     <Window.Resources>
         <DataTemplate x:Key="DateTemplateDateOfEmployment">
             <TextBlock
@@ -27,7 +29,7 @@
             <DatePicker SelectedDate="{Binding DateOfBearth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </DataTemplate>
         <Style x:Key="Error" TargetType="{x:Type TextBox}">
-            <Setter Property="Padding" Value="02"/>
+            <Setter Property="Padding" Value="-2"/>
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="Background" Value="Red"/>
@@ -38,63 +40,53 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <ControlTemplate x:Key="Grid">
+            <Grid Margin="0,-2,0,-2"
+                  ToolTip="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
+                Path=(Validation.Errors)[0].ErrorContent}">
+                <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}"
+                         Height="{TemplateBinding FontSize}"/>
+                <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center"/>
+            </Grid>
+        </ControlTemplate>
         <local:ListSex x:Key="ListSex"/>
         <local:ListPosition x:Key="ListPosition"/>
         <local:EducationList x:Key="ListEducation"/>
         <local:ListDepartment x:Key="ListDepartment"/>
+        <core:ListRoles x:Key="ListRoles"/>
     </Window.Resources>
-    <Window.CommandBindings>
-        <CommandBinding 
-            Command="Undo" 
-            Executed="UndoCommandBinding_Executed"
-            CanExecute="UndoCommandBinding_CanExecuted">
-        </CommandBinding>
-        <CommandBinding
-            Command="New"
-            Executed="NewCommandBinding_Executed"
-            CanExecute="NewCommandBinding_CanExecute">
-        </CommandBinding>
-        <CommandBinding
-            Command="Save"
-            Executed="SaveCommandBinding_Executed"
-            CanExecute="SaveCommandBinding_CanExecute">
-        </CommandBinding>
-        <CommandBinding
-            Command="Find"
-            Executed="FindCommandBinding_Executed"
-            CanExecute="FindCommandBinding_CanExecute">
-        </CommandBinding>
-        <CommandBinding
-            Command="Delete"
-            Executed="DeleteCommandBinding_Executed"
-            CanExecute="DeleteCommandBinding_CanExecute">
-        </CommandBinding>
-    </Window.CommandBindings>
-    <Grid>
+
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1130*"/>
+            <ColumnDefinition Width="321*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#FFB4B4B4"></Rectangle>
-        <Rectangle Fill="#FFB4B4B4" Grid.Row="2"></Rectangle>
-        <Image Source="Img/manage.jpg" Margin="0,10,545,10"></Image>
-        <Label Grid.Row="0" Content="Управление сотрудниками" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS"></Label>
-        <Label Grid.Row="2" Content="IvanDegN copyright © 2021" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS"></Label>
-        <Menu Grid.Row="1" Height="30" Margin="0,0,0,250">
+        <Rectangle Fill="#FFB4B4B4" Grid.ColumnSpan="2"></Rectangle>
+        <Rectangle Fill="#FFB4B4B4" Grid.Row="2" Grid.ColumnSpan="2"></Rectangle>
+        <Image Source="Img/manage.jpg" Margin="0,10,432,10"></Image>
+        <Label Grid.Row="0" Content="Управление сотрудниками" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"></Label>
+        <Label Grid.Row="2" Content="IvanDegN copyright © 2021" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"></Label>
+        <Menu Grid.Row="1" Margin="10,0,10,250">
             <MenuItem Header="Меню">
-                <MenuItem Header="Отменить" Command="Undo"></MenuItem>
+                <MenuItem Header="Отменить" Click="UndoBtn_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Создать" Command="New"></MenuItem>
-                <MenuItem Header="Редактировать"></MenuItem>
-                <MenuItem Header="Сохранить" Command="Save"></MenuItem>
-                <MenuItem Header="Найти" Command="Find"></MenuItem>
+                <MenuItem Header="Создать" Click="addBtn_Click"></MenuItem>
+                <MenuItem Header="Редактировать" Click="editBtn_Click"></MenuItem>
+                <MenuItem Header="Сохранить" Click="saveBtn_Click"></MenuItem>
+                <MenuItem Header="Найти" Click="findBtn_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Удалить" Command="Delete"></MenuItem>
+                <MenuItem Header="Удалить" Click="delBtn_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBar Grid.Row="1" Margin="0,35,0,210">
-            <Button Name="addBtn" ToolTip="Добавить сотрудника" Command="New" Click="addBtn_Click" >
+        <ToolBar Grid.Row="1" Margin="10,35,10,200">
+            <Button Name="addBtn" ToolTip="Добавить сотрудника" Click="addBtn_Click" >
                 <Image Source="Img/plus.png"></Image>
             </Button>
             <Button Name="delBtn" ToolTip="Удалить сотрудника"  Click="delBtn_Click" >
@@ -103,7 +95,7 @@
             <Button Name="editBtn" ToolTip="Редактировать данные сотрудника" VerticalAlignment="Top" Click="editBtn_Click" >
                 <Image Source="Img/edit.png"></Image>
             </Button>
-            <Button Name="findBtn" ToolTip="Найти сотрудника" Command="Find">
+            <Button Name="findBtn" ToolTip="Найти сотрудника" Click="findBtn_Click">
                 <Image Source="Img/find.png"></Image>
             </Button>
             <Button Name="saveBtn" ToolTip="Сохранить изменения" Click="saveBtn_Click">
@@ -112,11 +104,14 @@
             <Button Name="UndoBtn" ToolTip="Отменить изменения"  Click="UndoBtn_Click">
                 <Image Source="Img/cross.png"></Image>
             </Button>
-            
+            <Button Name="refreshBtn" ToolTip="Обновить таблицу" Click="refreshBtn_Click">
+                <Image Source="Img/refresh.png"></Image>
+            </Button>
+
         </ToolBar>
-        <TextBlock Margin="0,75,10,175" Text="Список сотрудников" Grid.Row="1" Height="30"></TextBlock>
+        <TextBlock Margin="10,85,526,165" Text="Список сотрудников" Grid.Row="1"/>
         <DataGrid Grid.Row="1" 
-                  Margin="0,105,0,0" 
+                   
                   Name="GridEmployee" 
                   SelectionMode="Extended" 
                   SelectionUnit="FullRow" 
@@ -138,13 +133,21 @@
                   BorderThickness="1"
                   RowHeight="25"
                   Cursor="Hand"
-                  Width="1000">
-                  
+                  Width="1012" Margin="97,115,21,0">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Fam, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding MiddlleName, Mode=TwoWay}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Номер телефона" Binding="{Binding NumberPhone, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер телефона" EditingElementStyle="{StaticResource Error}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="NumberPhone" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions="True">
+                            <Binding.ValidationRules>
+                                <rule:PhoneRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Адрес" Binding="{Binding Address, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Дата приёма на работу" CellTemplate="{StaticResource DateTemplateDateOfEmployment}" CellEditingTemplate="{StaticResource EditingDateTemplateDateOfEmployment}"></DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Дата рождения" CellTemplate="{StaticResource DateTemplateDateOfBearth}" CellEditingTemplate="{StaticResource EditingDateTemplateDateOfBearth}"></DataGridTemplateColumn>
@@ -173,7 +176,32 @@
                                         SelectedValueBinding="{Binding Path=department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         SelectedValuePath="Department">
                 </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Роль"
+                                        ItemsSource="{Binding Source={StaticResource ListRoles}}"
+                                        DisplayMemberPath="Role"
+                                        SelectedValueBinding="{Binding Path=role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="role">
+                </DataGridComboBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+
+        <TextBlock Name="searchText" TextWrapping="Wrap" Text="Поиск" Margin="134,5,119,234" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="68"/>
+        <TextBlock Name="TextBlockSurname" Text="Фамилия" Margin="10,23,239,210" Grid.Column="1" Grid.Row="1" />
+        <TextBlock Name="TextBlockPosititon" Text="Должность" Margin="10,57,227,195" Grid.Column="1" Grid.Row="1" />
+        <TextBox Name="TextBoxSurname" TextChanged="TextBoxSurname_TextChanged" Margin="70,23,58,228" Grid.Row="1" Grid.Column="1" />
+        <ComboBox Name="ComboBoxPosition" ItemsSource="{Binding Source={StaticResource ListPosition}}"
+          DisplayMemberPath="position" SelectionChanged="ComboBoxPosition_SelectionChanged" Margin="82,57,58,195" Grid.Row="1" Grid.Column="1" />
+        <Button Name="ButtonFindSurname" ToolTip="Поиск по фамилии" IsEnabled="False" Click="ButtonFindSurname_Click" Grid.ColumnSpan="1" Margin="268,23,23,234" Grid.Row="1" Grid.Column="1">
+            <Image Source="Img/find.png"/>
+        </Button>
+        <Button Name="ButtonFindPosition" ToolTip="Поиск по должности" IsEnabled="False" Click="ButtonFindPosition_Click" RenderTransformOrigin="0,0.043" Margin="268,60,23,195" Grid.Column="1" Grid.Row="1">
+            <Image Source="Img/find.png" RenderTransformOrigin="-0.368,-0.263" />
+        </Button>
+        <Button Content="Должность" Name="BtnPosition" Click="BtnPosition_Click"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="192" Height="31"/>
+        <Button Content="Образование" Name="BtnEducation" Click="BtnEducation_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="10,172,0,0" Grid.Row="1" VerticalAlignment="Top" Width="192"/>
+        <Button Content="Отдел" Name="BtnDepartment" Click="BtnDepartment_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="10,199,0,0" Grid.Row="1" VerticalAlignment="Top" Width="192"/>
+
+
     </Grid>
 </Window>

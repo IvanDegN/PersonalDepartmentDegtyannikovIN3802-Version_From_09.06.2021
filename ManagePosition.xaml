@@ -1,0 +1,31 @@
+﻿<Window x:Class="PersonalDepartmentDegtyannikovIN3802.ManagePosition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PersonalDepartmentDegtyannikovIN3802"
+        mc:Ignorable="d"
+        Title="Добавить должность" Height="287.812" Width="521.562" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="0,0,-8,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="292*"/>
+
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Список должностей" Margin="10,10,105,178"></TextBlock>
+        <DataGrid Name="gridPositions" ItemsSource="{Binding}" Margin="10,34,300,114">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Должность" Binding="{Binding position}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="75" Name="BtnDel" Click="BtnDel_Click"/>
+        <Button Content="Изменить" HorizontalAlignment="Left" Margin="91,149,0,0" VerticalAlignment="Top" Width="76" Name="BtnEdit" Click="BtnEdit_Click"/>
+        <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="76" Height="25" Name="BtnAdd" Click="BtnAdd_Click"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Width="75" Name="BtnSave" Click="BtnSave_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="87,209,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Name="TbPos"/>
+        <Label Content="Должность: " HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top"/>
+
+
+    </Grid>
+
+</Window>
