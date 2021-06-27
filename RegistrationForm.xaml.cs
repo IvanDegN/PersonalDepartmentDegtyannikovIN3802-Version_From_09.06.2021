@@ -96,6 +96,12 @@ namespace PersonalDepartmentDegtyannikovIN3802
         public RegistrationForm()
         {
             InitializeComponent();
+            CbRole.SelectedIndex = 1;
+            
+            
+
+            
+
         }
 
         
@@ -181,11 +187,12 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            
-            
-                
 
-                List<System.Windows.Controls.TextBox> textBoxes = new List<System.Windows.Controls.TextBox>() { TbLogin, TbMiddleName, TbName, TbPhone, TbSurname, Address, TbWorkExperience, TbRoom };
+
+            
+            
+
+            List<System.Windows.Controls.TextBox> textBoxes = new List<System.Windows.Controls.TextBox>() { TbLogin, TbMiddleName, TbName, TbPhone, TbSurname, Address, TbWorkExperience, TbRoom };
 
                 foreach (System.Windows.Controls.TextBox tb in textBoxes)
                 {
@@ -217,7 +224,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     LabelHint.Visibility = Visibility.Hidden;
                 }
 
-            if (!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(PassBox.Password))
+            if (!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(PassBox.Password) && CbRole.SelectedIndex == 2)
             {
                 
                 foreach (var usr in DB.db.Users)
@@ -225,14 +232,14 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     if (TbLogin.Text == usr.Login && PassBox.Password == usr.Password)
                     {
                         reg = false;
-                        System.Windows.Forms.MessageBox.Show("This user is exits yet!", "Error!");
+                        System.Windows.Forms.MessageBox.Show("Этот пользователь уже существует, введите другие данные!", "Error!",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         
 
                     }
                     else
                     {
                         reg = true;
-                        System.Windows.Forms.MessageBox.Show("You are registered!", "UwU:3");
+                        System.Windows.Forms.MessageBox.Show("Регистрация прошла успешно!", "Successful",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         break;
                     }
 
@@ -240,12 +247,6 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
             }
 
-
-
-
-            
-
-            
 
 
             if (DpEmployment.SelectedDate == null)
@@ -284,7 +285,11 @@ namespace PersonalDepartmentDegtyannikovIN3802
                 System.Windows.Forms.MessageBox.Show("Выберите пол из списка", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            
+            if(CbRole.SelectedIndex != 2)
+            {
+                reg = false;
+                System.Windows.Forms.MessageBox.Show("Невозможно зарегистрироваться с этой ролью, выберите другую", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }    
 
             
 
@@ -295,8 +300,10 @@ namespace PersonalDepartmentDegtyannikovIN3802
                 {
                     Login = TbLogin.Text,
                     Password = PassBox.Password,
-
+                    Roles = CbRole.SelectedItem as Roles
                 };
+
+                
 
                 Staffs staffs = new Staffs
                 {
@@ -313,11 +320,10 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     WorkExperience = TbWorkExperience.Text,
                     Room = TbRoom.Text,
                     Educations = CbEducation.SelectedItem as Educations
-                    
                 };
+                
 
-                DB.db.Staffs.Add(staffs);
-                DB.db.SaveChanges();
+                DB.db.Staffs.Add(staffs);      
                 DB.db.Users.Add(user);
                 DB.db.SaveChanges();
             }
@@ -332,11 +338,13 @@ namespace PersonalDepartmentDegtyannikovIN3802
             DB.db.Positions.Load();
             DB.db.Departments.Load();
             DB.db.Educations.Load();
+            DB.db.Roles.Load();
             
             CbSex.ItemsSource = DB.db.Sexes.ToList();
             CbPosition.ItemsSource = DB.db.Positions.ToList();
             CbDepartment.ItemsSource = DB.db.Departments.ToList();
             CbEducation.ItemsSource = DB.db.Educations.ToList();
+            CbRole.ItemsSource = DB.db.Roles.ToList();
         }
 
         private void TbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)

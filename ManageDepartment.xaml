@@ -20,7 +20,7 @@
         <Button Content="Добавить" Name="BtnAdd" Click="BtnAdd_Click" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Удалить" Name="BtnDelete" Click="BtnDelete_Click" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Сохранить" Name="BtnSave" Click="BtnSave_Click" HorizontalAlignment="Left" Margin="90,176,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="64,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Name="TbDepartment"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="64,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Name="TbDepartment" PreviewTextInput="TbDepartment_PreviewTextInput"/>
         <Label Content="Отдел: " HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

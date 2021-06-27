@@ -28,6 +28,22 @@ namespace PersonalDepartmentDegtyannikovIN3802
             InitializeComponent();
         }
 
+        public RegistrationForm RegistrationForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public UserForm UserForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void ButnReg(object sender, RoutedEventArgs e)
         {
             RegistrationForm registrationForm = new RegistrationForm();
@@ -51,7 +67,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
                 Roles roles = new Roles();
                 foreach(var user in DB.db.Users)
                 {
-                    if(TbLogin.Text == user.Login && TbPassBox.Password == user.Password)
+                    if(TbLogin.Text == user.Login && TbPassBox.Password == user.Password && !String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(TbPassBox.Password))
                     {
                         login = true;
                         IdRole = (int)user.RoleId;
@@ -64,25 +80,28 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
             if(login)
             {
+                    reg = true;
                     MessageBox.Show($"Вы успешно зашли под {roles}");
                     switch (IdRole)
                     {
                         case 1:
                             ManageStaffs manageStaffs = new ManageStaffs();
+                            this.Close();
                             manageStaffs.Show();
                             break;
 
                         case 2:
-                            ManageStaffs manageStaffss = new ManageStaffs();
-                            manageStaffss.Show();
-                            
+                            UserForm userForm = new UserForm();
+                            this.Close();
+                            userForm.Show();
                             break;
                     }
             }
         }
         catch
         {
-
+                reg = false;
+                MessageBox.Show("Логин или пароль неверен. Повторите попытку.","Warning", MessageBoxButtons.OK,MessageBoxIcon.Warning);
         }
 
             if(TbLogin.Text == "")
@@ -105,29 +124,29 @@ namespace PersonalDepartmentDegtyannikovIN3802
             }
 
 
-            if(!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(TbPassBox.Password))
-            {
-                foreach(var usr in DB.db.Users)
-                {
-                    if (TbLogin.Text == usr.Login && TbPassBox.Password == usr.Password)
-                    {
-                        reg = true;
-                        System.Windows.Forms.MessageBox.Show("Вы успешно зашли в аккаунт", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        MainWindow mainWindow = new MainWindow();
-                        this.Close();
-                        mainWindow.Show();
-                        break;
-                    }  
-                    else
-                    {
-                        reg = false;
-                        System.Windows.Forms.MessageBox.Show("Повторите ввод, данные неверны", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                    }
+            //if(!String.IsNullOrEmpty(TbLogin.Text) && !String.IsNullOrEmpty(TbPassBox.Password))
+            //{
+            //    foreach(var usr in DB.db.Users)
+            //    {
+            //        if (TbLogin.Text == usr.Login && TbPassBox.Password == usr.Password)
+            //        {
+            //            reg = true;
+            //         //   System.Windows.Forms.MessageBox.Show("Вы успешно зашли в аккаунт", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //          //  MainWindow mainWindow = new MainWindow();
+            //         //   this.Close();
+            //          //  mainWindow.Show();
+            //          //  break;
+            //        }  
+            //        else
+            //        {
+            //         //   reg = false;
+            //          //  System.Windows.Forms.MessageBox.Show("Повторите ввод, данные неверны", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //          //  break;
+            //        }
                         
                     
-                }
-            }
+            //    }
+            //}
         }
 
         private void TbLogin_PreviewTextInput(object sender, TextCompositionEventArgs e)

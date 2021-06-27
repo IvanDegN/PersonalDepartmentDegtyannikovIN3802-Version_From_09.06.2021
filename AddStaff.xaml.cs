@@ -133,14 +133,14 @@ namespace PersonalDepartmentDegtyannikovIN3802
                     if (TbLogin.Text == usr.Login && PassBox.Password == usr.Password)
                     {
                         reg = false;
-                        System.Windows.Forms.MessageBox.Show("This user is exits yet!", "Error!");
+                        System.Windows.Forms.MessageBox.Show("Этот пользователь уже существует", "Error!",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
 
 
                     }
                     else
                     {
                         reg = true;
-                        System.Windows.Forms.MessageBox.Show("You are registered!", "UwU:3");
+                        System.Windows.Forms.MessageBox.Show("Пользователь успешно добавлен", "Successful",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         break;
                     }
 
@@ -201,7 +201,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
                 {
                     Login = TbLogin.Text,
                     Password = PassBox.Password,
-
+                    Roles = CbRoles.SelectedItem as Roles
                 };
 
                 Staffs staffs = new Staffs
@@ -222,8 +222,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
                 };
 
-                DB.db.Staffs.Add(staffs);
-                DB.db.SaveChanges();                
+                DB.db.Staffs.Add(staffs);           
                 DB.db.Users.Add(user);
                 DB.db.SaveChanges();
             }

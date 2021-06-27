@@ -22,7 +22,7 @@
         <Button Content="Изменить" HorizontalAlignment="Left" Margin="91,149,0,0" VerticalAlignment="Top" Width="76" Name="BtnEdit" Click="BtnEdit_Click"/>
         <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="76" Height="25" Name="BtnAdd" Click="BtnAdd_Click"/>
         <Button Content="Сохранить" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Width="75" Name="BtnSave" Click="BtnSave_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="87,209,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Name="TbPos"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="87,209,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Name="TbPos"  PreviewTextInput="TbPos_PreviewTextInput"/>
         <Label Content="Должность: " HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top"/>
 
 

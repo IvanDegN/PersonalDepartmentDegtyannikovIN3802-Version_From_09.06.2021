@@ -4,15 +4,18 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace PersonalDepartmentDegtyannikovIN3802
 {
@@ -22,8 +25,8 @@ namespace PersonalDepartmentDegtyannikovIN3802
     public partial class ManagePosition : Window
     {
         ObservableCollection<Positions> ListPositions = new ObservableCollection<Positions>();
-
-        public ManagePosition()
+        private Staffs currentStaffs = new Staffs();
+        public ManagePosition(Staffs staffs)
         {
             InitializeComponent();
             DB.db.Positions.Load();
@@ -36,7 +39,10 @@ namespace PersonalDepartmentDegtyannikovIN3802
             gridPositions.AutoGenerateColumns = false;
             gridPositions.IsReadOnly = true;
             
-            
+            if(staffs != null)
+            {
+                currentStaffs = staffs;
+            }
 
         }
 
@@ -53,6 +59,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
             }
             gridPositions.ItemsSource = ListPositions;
             
+            
 
         }
 
@@ -66,39 +73,55 @@ namespace PersonalDepartmentDegtyannikovIN3802
             {
                 ListPositions.Add(pos);
             }
-            gridPositions.ItemsSource = ListPositions.ToBindingList();
-            
+            gridPositions.ItemsSource = ListPositions;
+            gridPositions.Items.Refresh();
+
+
         }
 
         private void BtnDel_Click(object sender, RoutedEventArgs e)
         {
+            
             Positions positions = gridPositions.SelectedItem as Positions;
             
+            
+            
 
-            if(positions != null && gridPositions.Columns != null)
+            
+            if (positions != null && gridPositions.Columns != null)
             {
-                
-                var result = MessageBox.Show("Удалить должность: " + positions, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                if(result == MessageBoxResult.OK)
+                bool isAccept = true;
+
+                foreach (var elem in DB.db.Staffs)
                 {
-                    DB.db.Positions.Remove(positions);
-                    gridPositions.SelectedIndex = gridPositions.SelectedIndex == 0 ? 1 : gridPositions.SelectedIndex - 1;
-                    ListPositions.Remove(positions);
-                    try
+
+                    if (elem.PositionId == positions.PositionId)
                     {
-                    DB.db.SaveChanges();
+                        isAccept = false;
+                        MessageBox.Show("Невозможно удалить запись, так как она связана с другой таблицей", "Warning", MessageBoxButton.OKCancel);
+                        refresh();
+                        break;
                     }
-                    catch
-                    {
-                    MessageBox.Show("Невозможно удалить запись, так как она связана с другой таблицей","Warning",MessageBoxButton.OKCancel,MessageBoxImage.Warning);
-                    refresh();
-                    }
-                
+
                 }
+                if (isAccept)
+                {
+                    
+                    if (gridPositions.CurrentCell != null)
+                    {
+
+                        MessageBox.Show("Удалить должность: " + positions, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.OK);
+                        ListPositions.Remove(positions);
+                        DB.db.Positions.Remove(positions);
+                        DB.db.SaveChanges();
+                    }
+                }
+
+
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления");
+                MessageBox.Show("Выберите строку для удаления", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
             }
         }
 
@@ -115,7 +138,7 @@ namespace PersonalDepartmentDegtyannikovIN3802
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования");
+                MessageBox.Show("Выберите строку для редактирования", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
             }
             
         }
@@ -125,20 +148,92 @@ namespace PersonalDepartmentDegtyannikovIN3802
             Positions positions = new Positions();
             positions.position = TbPos.Text;
             DB.db.Positions.Add(positions);
+            ListPositions.Add(positions);
+
+            foreach(var item in DB.db.Positions)
+            {
+                if(item.position == positions.position)
+                {
+                    MessageBox.Show("Должность " + positions + " уже существует","Warning",MessageBoxButton.OK,MessageBoxImage.Warning,MessageBoxResult.OK);
+                    DB.db.Positions.Remove(positions);
+                    ListPositions.Remove(positions);
+                    break;
+                }
+            }
+            if(String.IsNullOrWhiteSpace(TbPos.Text))
+            {
+                DB.db.Positions.Remove(positions);
+                ListPositions.Remove(positions);
+                MessageBox.Show("Поле не должно быть пустым", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                
+            }
+            
+
+            
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             
                 gridPositions.CanUserAddRows = false;
-                DB.db.SaveChanges();
-                refresh();
+            try
+            {
+                if(gridPositions.Columns.Count >0)
+                {
+                    DB.db.SaveChanges();
+                    refresh();
+                    MessageBox.Show("Данные успешно сохранены!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Добавьте данные", "Warning", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                }
                 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
+           
+
+
         }
+
         
+
+        bool CheckNumbers(string numbers)
+        {
+            Regex regex = new Regex("[1234567890]");
+            return regex.IsMatch(numbers);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        private void TbPos_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            
+            e.Handled = CheckNumbers(e.Text);
+            if (TbPos.Text.Length >= 30)
+            {
+                
+                System.Windows.Forms.MessageBox.Show("Должность не должна быть длиннее, чем 30 символов.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TbPos.Text = TbPos.Text.Remove(TbPos.Text.Length - 1);
+                TbPos.SelectionStart = TbPos.Text.Length;
+            }
+        }
     }
 
-    
+   
+
+
+
 }
 
 

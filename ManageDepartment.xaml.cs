@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,6 +55,25 @@ namespace PersonalDepartmentDegtyannikovIN3802
             Departments departments = new Departments();
             departments.department = TbDepartment.Text;
             DB.db.Departments.Add(departments);
+            ListDepartments.Add(departments);
+
+            foreach (var item in DB.db.Departments)
+            {
+                if (item.department == departments.department)
+                {
+                    MessageBox.Show("Отдел " + departments + " уже существует", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                    DB.db.Departments.Remove(departments);
+                    ListDepartments.Remove(departments);
+                    break;
+                }
+            }
+            if (String.IsNullOrWhiteSpace(TbDepartment.Text))
+            {
+                DB.db.Departments.Remove(departments);
+                ListDepartments.Remove(departments);
+                MessageBox.Show("Поле не должно быть пустым", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+
+            }
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -62,20 +82,30 @@ namespace PersonalDepartmentDegtyannikovIN3802
 
             if (departments != null && gridDepartment.Columns != null)
             {
-                var result = MessageBox.Show("Удалить отдел: " + departments, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.OK)
+                bool isAccept = true;
+
+                foreach (var elem in DB.db.Staffs)
                 {
-                    DB.db.Departments.Remove(departments);
-                    gridDepartment.SelectedIndex = gridDepartment.SelectedIndex == 0 ? 1 : gridDepartment.SelectedIndex - 1;
-                    ListDepartments.Remove(departments);
-                    try
+
+                    if (elem.DepartmentId == departments.DepartmentId)
                     {
-                        DB.db.SaveChanges();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Невозможно удалить запись, так как она связана с другой таблицей", "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        isAccept = false;
+                        MessageBox.Show("Невозможно удалить запись, так как она связана с другой таблицей", "Warning", MessageBoxButton.OKCancel);
                         refresh();
+                        break;
+                    }
+
+                }
+                if (isAccept)
+                {
+
+                    if (gridDepartment.CurrentCell != null)
+                    {
+
+                        MessageBox.Show("Удалить отдел: " + departments, "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.OK);
+                        ListDepartments.Remove(departments);
+                        DB.db.Departments.Remove(departments);
+                        DB.db.SaveChanges();
                     }
                 }
             }
@@ -88,8 +118,24 @@ namespace PersonalDepartmentDegtyannikovIN3802
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             gridDepartment.CanUserAddRows = false;
-            DB.db.SaveChanges();
-            refresh();
+            try
+            {
+                if (gridDepartment.Columns.Count > 0)
+                {
+                    DB.db.SaveChanges();
+                    refresh();
+                    MessageBox.Show("Данные успешно сохранены!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Добавьте данные", "Warning", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -114,5 +160,29 @@ namespace PersonalDepartmentDegtyannikovIN3802
             }
             gridDepartment.ItemsSource = ListDepartments.ToBindingList();
         }
+
+        bool CheckNumbers(string numbers)
+        {
+            Regex regex = new Regex("[1234567890]");
+            return regex.IsMatch(numbers);
+        }
+
+
+
+        
+
+        private void TbDepartment_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            
+            e.Handled = CheckNumbers(e.Text);
+            if (TbDepartment.Text.Length >= 30)
+            {
+
+                System.Windows.Forms.MessageBox.Show("Отдел не должен быть длиннее, чем 30 символов.", "Warning!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                TbDepartment.Text = TbDepartment.Text.Remove(TbDepartment.Text.Length - 1);
+                TbDepartment.SelectionStart = TbDepartment.Text.Length;
+            }
+        }
     }
+
 }

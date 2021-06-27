@@ -8,6 +8,14 @@ namespace PersonalDepartmentDegtyannikovIN3802
 {
     partial class Educations
     {
+        public Staffs educationid
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public override string ToString()
         {
             return education.ToString();

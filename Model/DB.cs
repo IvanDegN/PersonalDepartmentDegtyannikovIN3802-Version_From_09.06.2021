@@ -9,5 +9,13 @@ namespace PersonalDepartmentDegtyannikovIN3802
    static class DB
     {
         static public PersonalDepartmentDB db = new PersonalDepartmentDB();
+
+        public static PersonalDepartmentDB PersonalDepartmentDB
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.AddStaff" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQCCAQIBACILAAgAAAABCAACAFQgAMABAAA=</HashCode>
+      <FileName>AddStaff.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.677" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.App">
+    <Position X="17" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.LoginForm" BaseTypeListCollapsed="true">
+    <Position X="17" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAQCAAAAAAAIAAAAAAAEAAACAAAAAABAAAAE=</HashCode>
+      <FileName>LoginForm.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RegistrationForm" />
+      <Property Name="UserForm" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="48.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ManageDepartment" BaseTypeListCollapsed="true">
+    <Position X="13" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAEEAAACAAAEAAAAAAAgAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ManageDepartment.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ManageEducation" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAEEAAAAAAAEAAAAAAAoAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ManageEducation.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ManagePosition" BaseTypeListCollapsed="true">
+    <Position X="19" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAEEAAAAAAAAAAAAAAggAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ManagePosition.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ManageStaffs" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>aAQAAAAAQ2gAAAoAAQJAAAgAAACAFAAGoAAAAAAwAAA=</HashCode>
+      <FileName>ManageStaffs.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddStaff" />
+      <Property Name="ManagePosition" />
+      <Property Name="ManageEducation" />
+      <Property Name="ManageDepartment" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.DB">
+    <Position X="49" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DB.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PersonalDepartmentDB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Departments">
+    <Position X="25.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAEAAAAAAAQACAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Model\Departments.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="departmentsid" />
+      <Property Name="DepartmentId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.EducationList">
+    <Position X="53" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\EducationList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Educations">
+    <Position X="32" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAEAAAAAAAAACAAACAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model\Educations.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="educationid" />
+      <Property Name="EducationId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ListDepartment">
+    <Position X="53.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ListDepartment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ListPosition">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ListPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ListRoles">
+    <Position X="50.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ListRoles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ListSex">
+    <Position X="51" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ListSex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Positions">
+    <Position X="28.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAACCAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Positions.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Positionid" />
+      <Property Name="PositionId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Roles">
+    <Position X="32" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAAAAAEEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Roles.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Users1" />
+      <Property Name="RoleId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Sexes">
+    <Position X="33.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAEAAQAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Sexes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="sexid" />
+      <Property Name="SexId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Staffs">
+    <Position X="37.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAoAAAoAAgADBEKAQAAACAAAACAAABAACAABQ=</HashCode>
+      <FileName>Model\Staffs.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PositionId" />
+      <Property Name="SexId" />
+      <Property Name="StaffId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.PersonalDepartmentDB">
+    <Position X="48.75" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAgACAEAAAAEiAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>PersonalDepartmentDB.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Users">
+    <Position X="25.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAgAAgAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Users.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RoleId" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.RegistrationForm" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQCCAQIBAAILAAkAAAABCQACAFAgIAEBCQA=</HashCode>
+      <FileName>RegistrationForm.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.UserForm" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAAAAAQkgAAAIAAABAAAgAAAAAEAACAAAAAAAQAAA=</HashCode>
+      <FileName>UserForm.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Commands.DataCommands">
+    <Position X="46.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAABCAAAAAAAAAAAAEIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\DataCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Properties.Resources">
+    <Position X="2.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.Properties.Settings">
+    <Position X="48.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersonalDepartmentDegtyannikovIN3802.ValidationRules.PhoneRule">
+    <Position X="48.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ValidationRules\PhoneRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="System.Int32">
+    <Position X="28.25" Y="4.75" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

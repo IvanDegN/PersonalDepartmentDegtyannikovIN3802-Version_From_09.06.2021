@@ -61,6 +61,8 @@
             <TextBox Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="10,12,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="59" FontFamily="Comic Sans MS" Name="TbRoom" PreviewTextInput="TbRoom_PreviewTextInput"/>
             <Label Content="Опыт работы" Grid.Column="2" HorizontalAlignment="Left" Margin="59,39,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" Grid.ColumnSpan="2" Width="86"/>
             <TextBox Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="44,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="41" FontFamily="Comic Sans MS" Name="TbWorkExperience" PreviewTextInput="TbWorkExperience_PreviewTextInput"/>
+            <Label Content="Роль" HorizontalAlignment="Left" Margin="21,56,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="21,57,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Name="CbRole" />
 
         </Grid>
         <Image Margin="10,10,225,10" Source="Img/checkform.png"/>

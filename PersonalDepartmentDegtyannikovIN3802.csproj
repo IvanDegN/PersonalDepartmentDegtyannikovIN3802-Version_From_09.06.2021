@@ -72,6 +72,9 @@
     <Compile Include="Departments.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="EditStaffs.xaml.cs">
+      <DependentUpon>EditStaffs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Educations.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
@@ -129,11 +132,18 @@
     <Compile Include="Staffs.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserForm.xaml.cs">
+      <DependentUpon>UserForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>PersonalDepartmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules\PhoneRule.cs" />
     <Page Include="AddStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditStaffs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -199,6 +213,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PersonalDepartmentDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="PersonalDepartmentDB.edmx.diagram">
       <DependentUpon>PersonalDepartmentDB.edmx</DependentUpon>
@@ -223,6 +238,7 @@
     <Resource Include="Img\del.png" />
     <Resource Include="Img\add-user.png" />
     <Resource Include="Img\refresh.png" />
+    <Resource Include="Img\EditStaff.png" />
     <Content Include="PersonalDepartmentDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PersonalDepartmentDB.Context.cs</LastGenOutput>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PersonalDepartmentDegtyannikovIN3802
 {
-    public class ListPosition : ObservableCollection<Positions>
+    public  class ListPosition : ObservableCollection<Positions>
     {
         public ListPosition()
         {
@@ -18,7 +18,9 @@ namespace PersonalDepartmentDegtyannikovIN3802
             foreach (Positions item in query)
             {
                 this.Add(item);
+                
             }
+            
 
         }
 
